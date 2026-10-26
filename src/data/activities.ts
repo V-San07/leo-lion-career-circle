@@ -9,7 +9,7 @@ export interface Activity {
   year: string;
   description: string;
   skills: string[];
-  link?: string;
+  link?: string | undefined;
 }
 
 export const activities: Activity[] = [
