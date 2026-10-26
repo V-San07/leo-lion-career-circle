@@ -10,33 +10,63 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as OpportunitiesRouteImport } from './routes/opportunities'
+import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as TalentRouteImport } from './routes/talent'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OpportunitiesRoute = OpportunitiesRouteImport.update({
+  id: '/opportunities',
+  path: '/opportunities',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TalentRoute = TalentRouteImport.update({
+  id: '/talent',
+  path: '/talent',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/opportunities': typeof OpportunitiesRoute
+  '/profile': typeof ProfileRoute
+  '/talent': typeof TalentRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/opportunities': typeof OpportunitiesRoute
+  '/profile': typeof ProfileRoute
+  '/talent': typeof TalentRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/opportunities': typeof OpportunitiesRoute
+  '/profile': typeof ProfileRoute
+  '/talent': typeof TalentRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/opportunities' | '/profile' | '/talent'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/opportunities' | '/profile' | '/talent'
+  id: '__root__' | '/' | '/opportunities' | '/profile' | '/talent'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  OpportunitiesRoute: typeof OpportunitiesRoute
+  ProfileRoute: typeof ProfileRoute
+  TalentRoute: typeof TalentRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +78,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/opportunities': {
+      id: '/opportunities'
+      path: '/opportunities'
+      fullPath: '/opportunities'
+      preLoaderRoute: typeof OpportunitiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/talent': {
+      id: '/talent'
+      path: '/talent'
+      fullPath: '/talent'
+      preLoaderRoute: typeof TalentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  OpportunitiesRoute: OpportunitiesRoute,
+  ProfileRoute: ProfileRoute,
+  TalentRoute: TalentRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
